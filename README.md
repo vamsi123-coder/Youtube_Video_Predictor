@@ -1,99 +1,162 @@
-# ViralBoost (formerly RevenueIQ/CreatorAI) - YouTube Analytics ML Inference
+# 🎯 YouTube Video Performance & Monetization Predictor
 
-ViralBoost is a full-stack web application designed to predict a YouTube video's future performance (Engagement Rate, Predicted Likes, Monetization Level). It leverages a machine learning model trained on a dataset of trending YouTube videos, allowing creators to perform predictive analytics before publishing.
+A full-stack web application that predicts **YouTube video performance (likes, engagement rate)** and **monetization potential (Low / Medium / High)** *before publishing*.
+
+This system uses **Machine Learning, NLP, and AI-based explanations** to help content creators make **data-driven decisions** and improve their content strategy.
+
+🔗 **GitHub Repository:** [vamsi123-coder/Youtube_Video_Predictor](https://github.com/vamsi123-coder/Youtube_Video_Predictor/)
+
+---
 
 ## 🚀 Features
 
-- **Machine Learning**: Predicts absolute `Likes` and relative `Engagement Rate` via a Random Forest regression architecture.
-- **Micro-Services Architecture**: Backend powered by `FastAPI` (Python) and `Scikit-Learn`, decoupled from a high-performance `React`/`Vite` frontend.
-- **Frontend Dashboard**:
-  - Two-faced sleek Light/Dark mode toggle.
-  - "What-If" Sensitivity Simulator: Dynamically adjust upload hour, text length, and channel subs to see instant score differentials.
-  - Detailed heuristic insights (SEO Score, Sentiment, Clickbait metrics) bridging ML features to actionable UX.
-  - Interactive doughnut & radar visualizations via `Chart.js`.
-  - Modern web-design: Framer Motion layout animations, glassmorphism, gradient meshes.
+- 📊 Predicts video performance (likes & engagement rate)
+- 💰 Classifies monetization potential (Low / Medium / High)
+- 🧠 NLP-based analysis (sentiment, keywords, clickbait detection)
+- 🔑 SEO keyword suggestions
+- ⏰ Optimal upload time recommendation
+- 🔄 Strategy comparison (test multiple titles/descriptions)
+- 🤖 AI-generated explanations & suggestions
+- 📈 Interactive dashboard with charts and score indicators
+- 🧩 Feature importance analysis
 
 ---
 
 ## 🛠️ Tech Stack
 
-**Backend:**
-- Python 3.13
-- FastAPI
-- Pandas & NumPy
-- Scikit-Learn (Random Forest)
-- Joblib
-
-**Frontend:**
-- React (Vite)
-- Framer Motion (Animations)
-- Chart.js & React-Chartjs-2
-- SweetAlert2
-- Vanilla CSS (`index.css` global theme variables)
+| Layer | Technologies |
+|-------|-------------|
+| **Backend** | Python, FastAPI, Scikit-learn, Pandas, NumPy, TextBlob / NLTK, Joblib |
+| **Frontend** | React.js, Tailwind CSS, Chart.js / Recharts, Axios |
+| **AI Layer** | Llama 3 (via Ollama) |
 
 ---
 
-## 💻 Local Setup & Installation
+## 💻 Setup & Installation
 
-### 1. Backend Setup
-
-From the root of the project, spin up the FastAPI service:
+### 🔹 Backend
 
 ```bash
 cd backend
-
-# Install dependencies (if you haven't yet)
 pip install -r requirements.txt
-
-# Start the uvicorn development server
-python -m uvicorn app.main:app --reload
+uvicorn main:app --reload
 ```
-The backend runs on `http://127.0.0.1:8000`. You can view the automated Swagger UI documentation at `http://127.0.0.1:8000/docs`.
 
-### 2. Frontend Setup
+> Backend runs at: `http://127.0.0.1:8000`
 
-In a new terminal window, navigate to the React UI and run the Vite dev server:
+### 🔹 Frontend
 
 ```bash
 cd frontend
-
-# Install node modules
 npm install
-
-# Start Vite dev server
 npm run dev
 ```
-The frontend will bind to `http://localhost:5173`. CORS has already been configured on the backend to allow requests from the React origin.
+
+> Frontend runs at: `http://localhost:5173`
 
 ---
 
-## 🧠 Model Training (Optional)
+## 🧠 System Flow
 
-The machine learning models are already pre-trained and serialized via `joblib` in the `models/` directory for fast inference. 
-
-However, if you would like to rebuild the pipeline, engineer features manually from the raw dataset, and save new model binaries:
-
-```bash
-python src/data_preprocessing.py
-python src/feature_engineering.py
-python src/model_training.py
 ```
-This script handles TF-IDF vectorization, interaction terms, missing value imputation, and pipeline exports.
+User Input → Frontend → Backend API → Feature Engineering → ML Models → Prediction → AI Explanation → Results Display
+```
 
 ---
 
-## 💡 How It Works (The Data Pipeline)
+## 📊 Data Pipeline
 
-1. **Frontend Request**: The React UI packages metadata (title, category, tags, subscriber count, upload hour).
-2. **Feature Engineering**: The FastAPI service receives the raw string maps. The category ID is encoded, string length metrics are computed, and input structures (via `app/schemas`) are strictly validated using Pydantic.
-3. **Inference**: 
-   - Uses `likes_model.pkl` to compute exact engagement volume.
-   - Uses `engagement_model.pkl` to compute ratio-based viewership.
-4. **Result**: A comprehensive monetization level (High/Medium/Low) is appended and served back to the React UI for visualization.
+```
+Dataset → Data Cleaning → Feature Engineering → Model Training → Model Storage → Prediction
+```
+
+Includes:
+- Sentiment analysis
+- Clickbait detection
+- SEO scoring
+- Time-based features
+
+---
+
+## 🧪 Model Details
+
+| Task | Model |
+|------|-------|
+| Likes Prediction | Random Forest Regressor |
+| Engagement Prediction | Linear Regression |
+| Monetization Classification | Threshold-based on predictions |
+
+---
+
+## 📡 API Endpoint
+
+### `POST /predict`
+
+**Request:**
+```json
+{
+  "title": "string",
+  "description": "string",
+  "tags": ["string"],
+  "upload_time": 14
+}
+```
+
+**Response:**
+```json
+{
+  "predicted_likes": 12000,
+  "engagement_rate": 0.045,
+  "monetization": "Medium",
+  "explanation": "AI-generated insight..."
+}
+```
+
+---
+
+## 🧪 Testing & Evaluation
+
+**Tested with:**
+- Different titles and keyword combinations
+- Various upload timings
+- Multiple content strategies
+
+**Metrics:**
+- Prediction accuracy
+- Response time
+- Recommendation effectiveness
+- UI usability
+
+---
+
+## 🎯 Key Highlights
+
+- ✔ Pre-publication prediction (major advantage)
+- ✔ Combines ML + NLP + AI in a single pipeline
+- ✔ Interactive and user-friendly UI
+- ✔ Modular and scalable system architecture
+
+---
+
+## 🚀 Future Enhancements
+
+- Real-time trending data integration
+- Advanced recommendation system
+- Multilingual support
+- Personalized creator insights
 
 ---
 
 ## 📄 License
-MIT License. Free to use, fork, and build upon.
 
+This project is licensed under the [MIT License](LICENSE).
 
+---
+
+## 👨‍💻 Author
+
+**Vamsi Krishna** — [@vamsi123-coder](https://github.com/vamsi123-coder)
+
+---
+
+> ⭐ If you found this project useful, please consider giving it a star!
